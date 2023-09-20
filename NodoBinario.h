@@ -35,9 +35,6 @@ public:
     bool buscar(T& val);
     bool insertar(T& val, NodoBinario<T> **nraiz);
     bool eliminar(T& val, NodoBinario<T> **nraiz);
-    T& minimo();
-    T& maximo();
-    int tamano();
 
 };
 

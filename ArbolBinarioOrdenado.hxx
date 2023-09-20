@@ -147,42 +147,4 @@ bool ArbolBinarioOrdenado<T>::eliminar(T& val) {
     return res;
 }
 
-// ------------------------------------------------------------------------
-template< class T >
-T& ArbolBinarioOrdenado<T>::minimo() {
-    if (this->raiz != NULL)
-        return this->raiz->minimo();
-}
-
-// ------------------------------------------------------------------------
-template< class T >
-T& ArbolBinarioOrdenado<T>::maximo() {
-    if (this->raiz != NULL)
-        return this->raiz->maximo();
-}
-
-// ------------------------------------------------------------------------
-template< class T >
-int ArbolBinarioOrdenado<T>::tamano() {
-    int val;
-    if (this->raiz == NULL)
-        val = 0;
-    else
-        val = this->raiz->tamano();
-
-    return val;
-}
-
-// ------------------------------------------------------------------------
-template< class T >
-int ArbolBinarioOrdenado<T>::altura() {
-    int val;
-    if (this->raiz == NULL)
-        val = -1;
-    else
-        val = this->raiz->obtenerAltura();
-
-    return val;
-}
-
 // eof - ArbolBinarioOrdenado.hxx

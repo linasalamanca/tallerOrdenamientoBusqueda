@@ -32,10 +32,6 @@ public:
     bool insertar(T& val);
     bool erase(T& val);
     bool eliminar(T& val);
-    T& minimo();
-    T& maximo();
-    int tamano();
-    int altura();
 };
 
 #include "ArbolBinarioOrdenado.hxx"

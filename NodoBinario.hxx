@@ -238,37 +238,6 @@ bool NodoBinario<T>::eliminar(T& val, NodoBinario<T> **nraiz) {
     return eliminado;
 }
 
-// ------------------------------------------------------------------------
-template< class T >
-T& NodoBinario<T>::minimo() {
-    NodoBinario<T> *p = this;
-    while (p->hijoIzq != NULL) {
-        p = p->hijoIzq;
-    }
-    return p->dato;
-}
-
-// ------------------------------------------------------------------------
-template< class T >
-T& NodoBinario<T>::maximo() {
-    NodoBinario<T> *p = this;
-    while (p->hijoDer != NULL) {
-        p = p->hijoDer;
-    }
-    return p->dato;
-}
-
-// ------------------------------------------------------------------------
-template< class T >
-int NodoBinario<T>::tamano() {
-    int vtam = 0;
-    if (this->hijoIzq != NULL)
-        vtam += this->hijoIzq->tamano();
-    if (this->hijoDer != NULL)
-        vtam += this->hijoDer->tamano();
-    return (vtam+1);
-}
-
 // eof - NodoBinario.hxx
 
 
