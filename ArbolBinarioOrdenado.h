@@ -1,28 +1,43 @@
-#ifndef __ARBOLBINARIOORDENADO_H__
-#define __ARBOLBINARIOORDENADO_H__
+#ifndef __ARBOLBIN__H__
+#define __ARBOLBIN__H__
 
-#include "NodoBinario.h"
-template<class T>
-class ArbolBinarioOrdenado{
+#include <iostream>
+#include "NodoBinarioAVL.h"
+#include <list>
+#include <utility>
+
+template< class T >
+class ArbolBinarioOrdenado {
 protected:
-    NodoBinario<T>* raiz;
+    NodoBinarioAVL<T> *raiz;
 public:
+    //constructores
     ArbolBinarioOrdenado();
+    ArbolBinarioOrdenado(T& val);
+    //destructor
     ~ArbolBinarioOrdenado();
+    //manipuladores del arbol
     bool esVacio();
-    T datoRaiz();
-    int altura();
-    int altura(NodoBinario<T>* nodo);
-    int tamano();
-    int tamano(NodoBinario<T>* nodo);
-    bool insertar(T val);
-    bool eliminar(T val);
-    bool buscar(T val);
-    void preOrden(NodoBinario<T>* nodo);
+    T& datoRaiz();
+    void fijarRaiz(NodoBinarioAVL<T> *n_raiz);
+    NodoBinarioAVL<T>* obtenerRaiz();
+    //operaciones del arbol
+    void preOrden();
     void inOrden();
-    void inOrden(NodoBinario<T>* nodo);
-    void posOrden(NodoBinario<T>* nodo);
+    void inOrdenLista(std::list<T>& lista);
+    void posOrden();
     void nivelOrden();
+    bool buscar(T& val);
+    bool insert(T& val);
+    bool insertar(T& val);
+    bool erase(T& val);
+    bool eliminar(T& val);
+    T& minimo();
+    T& maximo();
+    int tamano();
+    int altura();
 };
+
 #include "ArbolBinarioOrdenado.hxx"
-#endif // __ARBOLBINARIOORD_H__
+
+#endif // __ARBOLBIN__H__

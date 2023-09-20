@@ -14,7 +14,7 @@ typedef std::list< std::string > TList;
 typedef std::set< std::string >  TSet;
 // TODO #2: definir tipos de datos para arboles de cadenas de caracteres
 typedef ArbolBinarioOrdenado<std::string> TArbolBO;
- typedef ArbolAVL< std::string > TArbolAVL;
+typedef ArbolAVL< std::string > TArbolAVL;
 
 // -------------------------------------------------------------------------
 template< class TTree >
@@ -33,10 +33,12 @@ int main( int argc, char* argv[] ) {
     TArbolAVL arbolAVL;
     //TSet arbolRN;
 
+
+    std::cout<< "\nBINARIO ORDENADO--------------------------------------------------"<< std::endl;
     // Llenar arbol binario ordenado y obtener tiempo de ejecucion
     std::clock_t start_arbolBO = std::clock( );
     // TODO #4: llenar arbol desde archivo con funcion ReadTree
-  /*  bool llenar_arbolBO = ReadTree( arbolBO, argv[ 1 ] );
+    bool llenar_arbolBO = ReadTree( arbolBO, argv[ 1 ] );
     std::clock_t end_arbolBO = std::clock( );
     double tiempo_arbolBO =
             ( end_arbolBO - start_arbolBO ) / double( CLOCKS_PER_SEC );
@@ -52,7 +54,9 @@ int main( int argc, char* argv[] ) {
              << "Error al usar \"" << argv[ 1 ]
              << "\" para llenar el arbol binario ordenado."
              << std::endl;
-    }*/
+    }
+
+    std::cout<< "\nAVL--------------------------------------------------"<< std::endl;
 
     // Llenar arbol AVL y obtener tiempo de ejecucion
     //std::clock_t start_arbolAVL = std::clock( );

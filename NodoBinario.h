@@ -1,28 +1,48 @@
-#ifndef __NODOBINARIO_H__
-#define __NODOBINARIO_H__
+#ifndef __NODOBINARIO__H__
+#define __NODOBINARIO__H__
 
-template<class T>
+#include <iostream>
+#include <list>
+#include <utility>
+
+template< class T >
 class NodoBinario {
 protected:
     T dato;
-    NodoBinario<T>* hijoIzq;
-    NodoBinario<T>* hijoDer;
+    NodoBinario<T> *hijoIzq;
+    NodoBinario<T> *hijoDer;
 public:
+    //constructores
     NodoBinario();
-    NodoBinario(T val);
+    NodoBinario(T& val);
+    NodoBinario(T& val, NodoBinario<T> *izq, NodoBinario<T> *der);
+    //destructor
     ~NodoBinario();
-    T obtenerDato();
-    void fijarDato(T val);
+    //manipuladores del nodo
+    bool esHoja();
+    T& obtenerDato();
     NodoBinario<T>* obtenerHijoIzq();
     NodoBinario<T>* obtenerHijoDer();
-    void fijarHijoIzq(NodoBinario<T>* izq);
-    void fijarHijoDer(NodoBinario<T>* der);
-    bool esHoja();
-    int getAltura();
-    void setAltura(int alt);
+    void fijarDato(T& val);
+    void fijarHijoIzq(NodoBinario<T> *izq);
+    void fijarHijoDer(NodoBinario<T> *der);
+    //operaciones del arbol
+    void preOrden();
+    void inOrden();
+    void inOrdenLista(std::list<T>& lista);
+    void posOrden();
+    void nivelOrden();
+    bool buscar(T& val);
+    bool insertar(T& val, NodoBinario<T> **nraiz);
+    bool eliminar(T& val, NodoBinario<T> **nraiz);
+    T& minimo();
+    T& maximo();
+    int tamano();
 
-    int altura;
 };
 
 #include "NodoBinario.hxx"
-#endif // __NODOBINARIO_H__
+
+#endif // __NODOBINARIO__H__
+
+// eof - NodoBinario.h
