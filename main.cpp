@@ -19,6 +19,7 @@ typedef ArbolAVL< std::string > TArbolAVL;
 // -------------------------------------------------------------------------
 template< class TTree >
 bool ReadTree( TTree& tree, const std::string& filename );
+bool ReadTreeRN(TSet & tree, const std::string& filename);
 
 // -------------------------------------------------------------------------
 int main( int argc, char* argv[] ) {
@@ -31,7 +32,7 @@ int main( int argc, char* argv[] ) {
     // TODO #3: declarar arboles
     TArbolBO arbolBO;
     TArbolAVL arbolAVL;
-    //TSet arbolRN;
+    TSet arbolRN;
 
 
     std::cout<< "\nBINARIO ORDENADO--------------------------------------------------"<< std::endl;
@@ -57,16 +58,8 @@ int main( int argc, char* argv[] ) {
     }
 
     std::cout<< "\nAVL--------------------------------------------------"<< std::endl;
-
-    // Llenar arbol AVL y obtener tiempo de ejecucion
-    //std::clock_t start_arbolAVL = std::clock( );
-    // TODO #6: llenar arbol AVL desde archivo con funcion ReadTree
-    // bool llenar_arbolAVL = ReadTree( arbolAVL, argv[ 1 ] );
-    //std::clock_t end_arbolAVL = std::clock( );
-    //double tiempo_arbolAVL =
-    //        ( end_arbolAVL - start_arbolAVL ) / double( CLOCKS_PER_SEC );
-
     std::clock_t start_arbolAVL = std::clock( );
+    // TODO #6: llenar arbol AVL desde archivo con funcion ReadTree
     bool llenar_arbolAVL = ReadTree( arbolAVL , argv[ 1 ] );
     std::clock_t end_arbolAVL = std::clock( );
     double tiempo_arbolAVL =
@@ -86,55 +79,55 @@ int main( int argc, char* argv[] ) {
              << std::endl;
     }
 
-
-    // Llenar arbol RN y obtener tiempo de ejecucion
-    /*std::clock_t start_arbolRN = std::clock( );
-    bool llenar_arbolRN = ReadTree( arbolRN, argv[ 1 ] );
+    std::cout<<"\nRN--------------------------------------------------"<< std::endl;
+    std::clock_t start_arbolRN = std::clock( );
+    // TODO #8: Llenar arbol RN y obtener tiempo de ejecucion
+    bool llenar_arbolRN = ReadTreeRN(arbolRN,argv[1]);
     std::clock_t end_arbolRN = std::clock( );
     double tiempo_arbolRN =
             ( end_arbolRN - start_arbolRN ) / double( CLOCKS_PER_SEC );
-    if( llenar_arbolRN )
-        std::cout
-                << "Tiempo de llenado Arbol RN = "
-                << tiempo_arbolRN << "seg."
-                << std::endl;
-    else
-        std::cout
-                << "Error al usar \"" << argv[ 1 ]
-                << "\" para llenar el arbol RN."
-                << std::endl;
+    if( llenar_arbolRN ) {
+        TSet::iterator itArbolRN = arbolRN.begin();
+        for(;itArbolRN!=arbolRN.end();itArbolRN++){
+            std::cout<<*itArbolRN<<"\t";
+        }
+        std::cout<< "\nTiempo de llenado Arbol RN = "<< tiempo_arbolRN << " seg."<< std::endl << std::endl;
+    }
+    else {
+        std::cout<< "Error al usar \"" << argv[1]<< "\" para llenar el arbol RN."<< std::endl;
+    }
 
     // Obtener recorrido en inorden del arbol binario ordenado
-    TList inorden_arbolBO;*/
+    TList inorden_arbolBO;
     // TODO #8: usar funcion del arbol para obtener recorrido en lista
-    //arbolBO.inOrdenLista( inorden_arbolBO );
-    /*arbolBO.inOrden( inorden_arbolBO );
+    arbolBO.inOrdenLista( inorden_arbolBO );
 
     // Obtener recorrido en inorden del arbol AVL
     TList inorden_arbolAVL;
     // TODO #9: usar funcion del arbol AVL para obtener recorrido en lista
-    // arbolAVL.inOrdenLista( inorden_arbolAVL );
+    arbolAVL.inOrdenLista( inorden_arbolAVL );
 
-    if( inorden_arbolBO.size( ) != inorden_arbolAVL.size( ) ||
-        inorden_arbolBO.size( ) != arbolRN.size( ) ||
-        inorden_arbolAVL.size( ) != arbolRN.size( )) {
+   if( inorden_arbolBO.size( ) != inorden_arbolAVL.size( ) ||
+       inorden_arbolBO.size( ) != arbolRN.size( ) ||
+       inorden_arbolAVL.size( ) != arbolRN.size( )) {
 
-        std::cout << "Tamannos de los arboles no coinciden." << std::endl;
-        return( -1 );
-    }*/
+       std::cout << "Tamannos de los arboles no coinciden." << std::endl;
+       return( -1 );
+   }
+
     // Comparar los arboles
-    /*TList::const_iterator aboIt = inorden_arbolBO.begin( );
+    TList::const_iterator aboIt = inorden_arbolBO.begin( );
     TList::const_iterator avlIt = inorden_arbolAVL.begin( );
     TSet::const_iterator rbIt = arbolRN.begin( );
     bool equal = true;
     for( ; rbIt != arbolRN.end( ); aboIt++, avlIt++, rbIt++ )
-        equal &= ( *rbIt == *avlIt && *avlIt == *aboIt && *rbIt == *aboIt );*/
+        equal &= ( *rbIt == *avlIt && *avlIt == *aboIt && *rbIt == *aboIt );
 
     // Informar si los arboles coinciden
-    /*std::cout << "Los arboles ";
+    std::cout << "Los arboles ";
     if( !equal )
         std::cout << "no ";
-    std::cout << "coinciden." << std::endl;*/
+    std::cout << "coinciden." << std::endl;
 
     return( 0 );
 
@@ -164,6 +157,32 @@ bool ReadTree( TTree& tree, const std::string& filename ) {
         }
     }
     tree.inOrden();
+    input.close( );
+    return true;
+}
+
+bool ReadTreeRN( TSet & tree, const std::string& filename ) {
+    std::ifstream input( filename.c_str( ) );
+    if( !input ) {
+        std::cout << "No se pudo abrir el archivo" << std::endl;
+        return false;
+    }
+
+    while( !input.eof( ) ) {
+        std::string code, value;
+        input >> code;
+        if (input.eof()) {
+            break;
+        }
+
+        input >> value;
+        if (code == "add") {
+            tree.insert(value);  // El arbol debe proveer el metodo "insert"
+        } else if (code == "del") {
+            tree.erase(value);  // El arbol debe proveer el metodo "erase" o "eliminar"
+        }
+    }
+
     input.close( );
     return true;
 }
